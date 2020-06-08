@@ -87,7 +87,7 @@ export default class SaucelabsConnector {
             process.stdout.write(message + '\n');
     }
 
-    async _getFreeMachineCount () {
+    /*async _getFreeMachineCount () {
         var params = {
             method: 'GET',
             url:    [`https://${SAUCE_API_HOST}/rest/v1/users`, this.username, 'concurrency'].join('/'),
@@ -97,15 +97,35 @@ export default class SaucelabsConnector {
         var response = await requestPromised(params);
 
         return JSON.parse(response.body).concurrency[this.username].remaining.overall;
+    }*/
+
+    async _getFreeMachineCount() {
+        var params = {
+            method: 'GET',
+            url: [
+                `https://${SAUCE_API_HOST}/rest/v1.2/users`,
+                this.username,
+                'concurrency'
+            ].join('/'),
+            auth: {
+                user: this.username,
+                pass: this.accessKey
+            }
+        };
+        var response = await requestPromised(params);
+        var organization = JSON.parse(response.body).concurrency.organization;
+        var allowed = organization.allowed.vms;
+        var current = organization.current.vms;
+        return allowed - current;
     }
 
-    async getSessionUrl (browser) {
+    async getSessionUrl(browser) {
         var sessionId = await browser.getSessionId();
 
         return `https://app.${SAUCE_API_HOST}/tests/${sessionId}`;
     }
 
-    async startBrowser (browser, url, { jobName, tags, build } = {}, timeout = null) {
+    async startBrowser(browser, url, {jobName, tags, build} = {}, timeout = null) {
         var webDriver = wd.promiseChainRemote(`ondemand.${SAUCE_API_HOST}`, 80, this.username, this.accessKey);
 
         var pingWebDriver = () => webDriver.eval('');
