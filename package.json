@@ -1,16 +1,16 @@
 {
-  "name": "saucelabs-connector-Kraken",
-  "version": "0.3.0-Kraken",
+  "name": "saucelabs-connector-kraken",
+  "version": "0.3.0-kraken",
   "main": "lib/index",
   "description": "Helps connect the local machine to SauceLabs and start a remote browser.",
   "author": "Alexander Moskovkin",
   "contributors": "Georgiy Abbasov",
-  "homepage": "https://github.com/AlexanderMoskovkin/saucelabs-connector/",
-  "bugs": "https://github.com/AlexanderMoskovkin/saucelabs-connector/issues",
+  "homepage": "https://github.com/SebastianChece2389/saucelabs-connector/",
+  "bugs": "https://github.com/SebastianChece2389/saucelabs-connector/issues",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/AlexanderMoskovkin/saucelabs-connector.git"
+    "url": "https://github.com/SebastianChece2389/saucelabs-connector.git"
   },
   "scripts": {
     "test": "gulp lint"
